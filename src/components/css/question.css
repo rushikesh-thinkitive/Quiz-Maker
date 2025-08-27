@@ -30,16 +30,34 @@ h4 {
     font-weight: bold;
 }
 
-/* Styling for the options */
-.options-container {
+/* Container to wrap options in rows of 2 */
+.options-wrapper {
     display: flex;
-    justify-content: center;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 20px; /* Space between options */
     margin-top: 1rem;
 }
 
+/* Styling for the options */
+.options-container {
+    display: flex;
+    align-items: center;
+    flex: 1 1 calc(50% - 20px); /* Ensures 2 options per row with a gap of 20px */
+    gap: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 0.5%
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
 .option {
+    margin: 0;
     background: linear-gradient(135deg, #1da1f2, #0a74b6);
     border-radius: 30px;
     color: #fff;
@@ -47,10 +65,11 @@ h4 {
     padding: 1rem 2rem;
     transition: all 0.3s ease-in-out;
     text-align: center;
-    width: 40%;
     font-size: 18px;
     font-weight: bold;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    flex-grow: 1;
+    text-align: left;
 }
 
 .option:hover {
@@ -103,6 +122,7 @@ h4 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 4%;
 }
 
 /* Redirect icon and label container */

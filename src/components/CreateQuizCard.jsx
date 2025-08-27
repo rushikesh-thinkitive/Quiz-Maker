@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Form, Button, Navbar, Nav, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { Checkmark } from 'react-checkmark';
 
-const CreateQuizCard = ({ quizzes, setQuizzes, question, setQuestion, format, setFormat, option, setOption, handleAddQuestion }) => {
+const CreateQuizCard = ({ question, setQuestion, format, setFormat, option, setOption, handleAddQuestion }) => {
     const [options, setOptions] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
@@ -53,6 +52,7 @@ const CreateQuizCard = ({ quizzes, setQuizzes, question, setQuestion, format, se
     return (
         <>
             <Container>
+                <h1 className="text-center pt-5 mt-3 pb-4 shadow-sm bg-gray rounded">Create Your Customize Quiz</h1>
                 <Row className="" style={{ marginTop: "100px" }}>
                     <Col
                         lg={20}

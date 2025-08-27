@@ -39,12 +39,6 @@ const QuestionCard = ({ question, options, handleAddScore, format, index }) => {
         }
     };
 
-    // useEffect(() => {
-    //     console.log("useEffect format",format);
-    //     format = 
-    //     console.log("Format Value:", format);   
-    // }, []);
-
     return (
         <>
             <div className="questions">
@@ -55,19 +49,21 @@ const QuestionCard = ({ question, options, handleAddScore, format, index }) => {
                         <FaExternalLinkAlt className="redirect-icon" />
                     </div>
                 </div>
-                {options.map((option, indexNo) => {
-                    return (
-                        <div className="options-container" key={indexNo}>
-                            <input type={(format === 'radio' || format === 'true/false' ? "radio" : "checkbox")} name={`question-${index}`}
-                                style={
-                                    format === "radio" ? { width: "22px", marginBottom: '1px', marginRight: '10px' } :
-                                        { width: "22px", marginBottom: '16px', marginRight: '10px' }
-                                } />
-                            <p className="option">{option}</p>
-                        </div>
-                    )
-                })
-                }
+                <div className="options-wrapper">
+                    {options.map((option, indexNo) => {
+                        return (
+                            <div className="options-container" key={indexNo}>
+                                <input type={(format === 'radio' || format === 'true/false' ? "radio" : "checkbox")} name={`question-${index}`}
+                                    style={
+                                        format === "radio" ? { width: "22px", marginRight: '10px' } :
+                                            { width: "22px", marginRight: '10px' }
+                                    } />
+                                <p className="option">{option}</p>
+                            </div>
+                        )
+                    })
+                    }
+                </div>
             </div>
         </>
     )
