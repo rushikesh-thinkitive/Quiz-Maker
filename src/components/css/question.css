@@ -8,10 +8,63 @@
     border-radius: 10px;
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    cursor: grab;
+    user-select: none;
 }
 
 .questions:hover {
     transform: scale(1.02);
+}
+
+/* Drag and Drop Styles */
+.draggable-question {
+    position: relative;
+}
+
+.draggable-question:active {
+    cursor: grabbing;
+}
+
+.draggable-question.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg) scale(1.05);
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.draggable-question.drag-over {
+    border-left: 5px solid #ff6b6b;
+    background: linear-gradient(135deg, #fff5f5, #ffe0e0);
+    transform: scale(1.02);
+}
+
+.draggable-question.drag-over::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px dashed #ff6b6b;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+/* Smooth transitions for all drag states */
+.draggable-question {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Prevent text selection during drag */
+.draggable-question.dragging * {
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Drop zone indicator */
+.draggable-question.drag-over .header h3 {
+    color: #ff6b6b;
+    transition: color 0.3s ease;
 }
 
 /* Heading styles */
@@ -162,4 +215,55 @@ input[type="checkbox"] {
     50%, 100% {
         left: 100%;
     }
+}
+
+/* Animation for successful drop */
+@keyframes dropSuccess {
+    0% { transform: scale(1.02); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.draggable-question.drop-success {
+    animation: dropSuccess 0.5s ease-in-out;
+}
+
+/* Drag handle indicator */
+.draggable-question::after {
+    content: '⋮⋮';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #1da1f2;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.draggable-question:hover::after {
+    opacity: 1;
+}
+
+/* Add a subtle hint that the question is draggable */
+.draggable-question::before {
+    content: 'Drag to reorder';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(29, 161, 242, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.draggable-question:hover::before {
+    opacity: 1;
 }

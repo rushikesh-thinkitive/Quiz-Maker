@@ -3,7 +3,7 @@ import './css/question.css';
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { useEffect } from 'react';
 
-const QuestionCard = ({ question, options, handleAddScore, format, index }) => {
+const QuestionCard = ({ question, options, handleAddScore, format, index, onDragStart, onDragOver, onDrop, onDragEnd }) => {
     const setQuestionScore = async () => {
         const { value: score } = await Swal.fire({
             title: 'Enter Score',
@@ -39,9 +39,41 @@ const QuestionCard = ({ question, options, handleAddScore, format, index }) => {
         }
     };
 
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData('text/plain', index);
+        e.dataTransfer.effectAllowed = 'move';
+        if (onDragStart) onDragStart(e, index);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (onDragOver) onDragOver(e, index);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'));
+        if (onDrop && draggedIndex !== index) {
+            onDrop(draggedIndex, index);
+        }
+    };
+
+    const handleDragEnd = (e) => {
+        if (onDragEnd) onDragEnd(e, index);
+    };
+
     return (
         <>
-            <div className="questions">
+            <div 
+                className="questions draggable-question"
+                draggable={true}
+                onDragStart={handleDragStart}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onDragEnd={handleDragEnd}
+                data-index={index}
+            >
                 <div className="header">
                     <h3>{question}</h3>
                     <div className="set-score" onClick={setQuestionScore}>
