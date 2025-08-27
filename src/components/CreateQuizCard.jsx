@@ -21,11 +21,9 @@ const CreateQuizCard = ({ question, setQuestion, format, setFormat, option, setO
 
     // Handle input change for options
     const handleOptionChange = (index, value) => {
-        if (value != '' && value != ' ' && value.length >= 1) {
-            const newOptions = [...options];
-            newOptions[index] = value;
-            setOptions(newOptions);
-        }
+        const newOptions = [...options];
+        newOptions[index] = value;
+        setOptions(newOptions);
     };
 
     // Add new option field
@@ -33,11 +31,17 @@ const CreateQuizCard = ({ question, setQuestion, format, setFormat, option, setO
         setOptions([...options, ""]);
     };
 
-    // Save options and close modal
     const saveOptions = () => {
-        console.log("options:", options);
+        // remove empty or whitespace-only options
+        const cleanedOptions = options.filter(opt => opt.trim() !== "");
+
+        if (cleanedOptions.length === 0) {
+            alert("Please enter at least one option before saving.");
+            return;
+        }
+
+        setOption(cleanedOptions);
         setShowModal(false);
-        setOption([...options]);
         setOptions([]);
     };
 
